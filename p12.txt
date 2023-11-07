@@ -1,0 +1,68 @@
+db.createCollection(&#39;Journal&#39;);
+{ &quot;ok&quot; : 1 }
+&gt;db.Journal.insert({&#39;book_id&#39;:1,&#39;book_name&#39;:&#39;JavacdOOP&#39;,&#39;amt&#39;:500,&#39;status&#39;:&#39;A
+vailable&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; db.Journal.insert({&#39;book_id&#39;:1,&#39;book_name&#39;:&#39;JavaOOP&#39;,&#39;amt&#39;:400,&#39;status&#39;:&#39;Not
+Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt;db.Journal.insert({&#39;book_id&#39;:1,&#39;book_name&#39;:&#39;Java&#39;,&#39;amt&#39;:300,&#39;s
+tatus&#39;:&#39;Not Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt;db.Journal.insert({&#39;book_id&#39;:2,&#39;book_name&#39;:&#39;Java&#39;,&#39;amt&#39;:300,&#39;s
+tatus&#39;:&#39;Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })&gt;
+&gt;db.Journal.insert({&#39;book_id&#39;:2,&#39;book_name&#39;:&#39;OPP&#39;,&#39;amt&#39;:200,&#39;st
+atus&#39;:&#39;Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt;db.Journal.insert({&#39;book_id&#39;:2,&#39;book_name&#39;:&#39;C+&#39;,&#39;amt&#39;:200,&#39;status&#39;:&#39;Available&#39;}
+);
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt;db.Journal.insert({&#39;book_id&#39;:3,&#39;book_name&#39;:&#39;C+&#39;,&#39;amt&#39;:150,&#39;status&#39;:&#39;Available&#39;}
+);
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; db.Journal.insert({&#39;book_id&#39;:3,&#39;book_name&#39;:&#39;C+
++&#39;,&#39;amt&#39;:200,&#39;status&#39;:&#39;Not Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; db.Journal.insert({&#39;book_id&#39;:4,&#39;book_name&#39;:&#39;OPP C+
++&#39;,&#39;amt&#39;:300,&#39;status&#39;:&#39;Not Available&#39;});
+
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; db.Journal.insert({&#39;book_id&#39;:5,&#39;book_name&#39;:&#39;OPP C+
++&#39;,&#39;amt&#39;:400,&#39;status&#39;:&#39;Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; db.Journal.insert({&#39;book_id&#39;:5,&#39;book_name&#39;:&#39;C+
++&#39;,&#39;amt&#39;:400,&#39;status&#39;:&#39;Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; db.Journal.insert({&#39;book_id&#39;:5,&#39;book_name&#39;:&#39;C++
+Java&#39;,&#39;amt&#39;:400,&#39;status&#39;:&#39;Not Available&#39;});
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; var mapfunction=function(){ emit(this.book_id,this.amt)};
+&gt; var reducefunction=function(key,value){return Array.sum(value);};
+&gt; db.Journal.mapReduce(mapfunction,reducefunction,
+{&#39;out&#39;:&#39;new&#39;});
+{
+&quot;result&quot; : &quot;new&quot;,
+&quot;timeMillis&quot; : 49,&quot;counts&quot; : {
+&quot;input&quot; : 12,
+&quot;emit&quot; : 12,
+&quot;reduce&quot; : 4,
+&quot;output&quot; : 5
+},
+&quot;ok&quot; : 1
+}
+&gt; db.Journal.mapReduce(mapfunction,reducefunction,
+{&#39;out&#39;:&#39;new&#39;}).find().pretty();
+{ &quot;_id&quot; : 1, &quot;value&quot; : 1200 }
+{ &quot;_id&quot; : 2, &quot;value&quot; : 700 }
+{ &quot;_id&quot; : 3, &quot;value&quot; : 350 }
+{ &quot;_id&quot; : 4, &quot;value&quot; : 300 }
+{ &quot;_id&quot; : 5, &quot;value&quot; : 1200 }
+&gt;
+&gt;
+&gt; db.new.find().pretty();
+{ &quot;_id&quot; : 1, &quot;value&quot; : 1200 }
+{ &quot;_id&quot; : 2, &quot;value&quot; : 700 }
+{ &quot;_id&quot; : 3, &quot;value&quot; : 350 }
+{ &quot;_id&quot; : 4, &quot;value&quot; : 300 }
+{ &quot;_id&quot; : 5, &quot;value&quot; : 1200 }
